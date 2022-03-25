@@ -18,6 +18,7 @@ PHPThreads requires the following PHP extensions:
 - pcntl
 
 ## Quick and dirty example!
+
 `<?php 
 require_once '../lib/phpthread.php'; /* Use correct path! */
 
@@ -33,7 +34,6 @@ function thread_proc(   $thread,
         'seconds_alive'=>$i,
         'lucky_number'=>rand(0, 10000)
     );
-
     echo "\n\t[PHPTHREAD] - I'm returning this:\n";
     print_r($myobj);
     echo "\n";
