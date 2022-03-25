@@ -1,2 +1,3 @@
 !sockets/
 sockets/*
+!sockets/README.txt
