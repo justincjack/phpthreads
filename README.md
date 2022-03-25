@@ -19,21 +19,25 @@ PHPThreads requires the following PHP extensions:
 
 ## Quick and dirty example!
 
-`<?php 
+```
+<?php 
 require_once '../lib/phpthread.php'; /* Use correct path! */
 
 function thread_proc(   $thread, 
                         $param)
 {
     echo "\n\t[PHPTHREAD] - I've started and have a param: \"" . print_r($param, true) . "\"!\n";
+
     for ($i = 0; $i < 15; $i++) {
         usleep(1000000);
         echo "\t[PHPTHREAD] - Tick!\n";
     }
+
     $myobj = (object)array(
         'seconds_alive'=>$i,
         'lucky_number'=>rand(0, 10000)
     );
+    
     echo "\n\t[PHPTHREAD] - I'm returning this:\n";
     print_r($myobj);
     echo "\n";
@@ -52,4 +56,5 @@ for ($i = 0; $i < 5; $i++) {
 echo "\n[MAIN] - Okay, I'm tired.  Waiting on child to quit.\n";
 phpthread_join($id, $retval);
 echo "\n[MAIN] - Child is done.  It returned:\n";
-print_r($retval);`
+print_r($retval);
+```
