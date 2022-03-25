@@ -18,8 +18,7 @@ PHPThreads requires the following PHP extensions:
 - pcntl
 
 ## Quick and dirty example!
-`
-<?php 
+`<?php 
 require_once '../lib/phpthread.php'; /* Use correct path! */
 
 function thread_proc(   $thread, 
