@@ -470,16 +470,9 @@ class PHPTHREAD {
     }
 
     private function check_socket() {
-        static $timer = null;
-
-        if ($timer === null) {
-            $timer = @\ftimer();
-        }
-
         $rx_buffer  = "";
         $bread      = "";
         $action     = false;
-        $timer->reset();
 
         if (!$this->listener_socket) {
             return;
@@ -502,13 +495,10 @@ class PHPTHREAD {
                         $bread = @\fread($client, 65535);
                         if ($bread !== "") {
                             $rx_buffer.=$bread;
-                            $timer->reset();
                         } else {
                             break;
                         }
                     } else if ($sv === false) {
-                        break;
-                    } else if ($timer->secs() > 5) {
                         break;
                     }
                 } while (1);
