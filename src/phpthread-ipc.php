@@ -162,25 +162,6 @@ function phpt_send_message( $target_pid,
         return false;
     }
 
-    $message->compressed = false;
-
-    if (@\property_exists($message, "data")) {
-        $len_check = @\json_encode($message->data);
-        if ($len_check &&
-            @\strlen($len_check) >= 1024000)
-        {
-            $message->compressed = true;
-            $compressed = @\gzcompress($len_check);
-            $b64 = null;
-            if ($compressed) {
-                $b64 = @\base64_encode($compressed);
-            }
-            if ($b64) {
-                $message->data = $b64;
-            }
-        }
-    }
-
     $msg_to_send = @\json_encode($message);
 
     if (!$msg_to_send) {
@@ -226,7 +207,10 @@ function phpt_send_message( $target_pid,
             $bytes_to_send-=$xmit;
             $bytes_sent+=$xmit;
             @\__data_interrupt($target_pid);
-        } else if ( $timer->ms() > 750) {
+        } else if ( $xmit === false ||
+                    ($xmit === 0 && 
+                    $timer->ms() > 750))
+        {
             echo "[".getmypid()."] - BROKEN PIPE: Failed to transmit message to thread. ($bytes_sent bytes sent - $bytes_to_send bytes remaining)\n";
             @\phpt_close_socket($cnx);
             return false;

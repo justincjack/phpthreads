@@ -6,11 +6,6 @@ define("PHPT_SOCKET_DIR",           __DIR__."/../sockets/");
 define("SIGDATA",                   SIGUSR1);
 define("SIGBEGIN",                  SIGUSR2);
 
-define("PHPT_BLOCKED_SIGNALS",      array(
-    SIGPIPE,
-    SIGALRM,
-));
-
 define("PHPT_SUCCESS",              0);
 define("PHPT_NOT_INITIALIZED",      -1);        /* new PHPTHREAD() wasn't called by the lib correctly - The library hasn't been initialized */
 define("PHPT_SOCK_FAILED",          -2);        /* A call to "unixlisten()" failed. */
@@ -51,6 +46,10 @@ define("PHPT_JOIN_TIMEOUT",          2);
 
 define("PHPTHREAD_JOIN_WAIT_INFINITE",  -1);
 define("PHPTHREAD_NO_WAIT",             -2);
+
+define("PHPT_WAIT_SUCCESS",          0);
+define("PHPT_WAIT_TIMEOUT",          1);
+
 
 define("PHPT_RX_MAX",               8192);
 

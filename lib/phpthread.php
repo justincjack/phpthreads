@@ -621,3 +621,44 @@ function phpthread_is_master_process(): bool {
 function phpthread_exit( $return_value ) {
     phpthread_this()->exit($return_value);
 }
+
+
+/**
+ * Wait patiently (with an optional timeout) for a variable to be set
+ * to a given value e.g. waiting for a global variable (changed by another
+ * PHPThread) to be set to true or false (or whatever).
+ * 
+ * @param mixed &$variable
+ * A reference to a variable whose value will be compared to that of 
+ * $target_value (param 2).
+ * 
+ * @param mixed $target_value
+ * When the value referenced by $variable (param 1) matches this value,
+ * the function will return with: PHPT_WAIT_SUCCESS.
+ * 
+ * @param int $ms_timeout
+ * (Optional) An optional parameter telling the function the MAX time, 
+ * in milliseconds, to wait before returning.  If the values don't
+ * match within this timeout, the function will return: PHPT_WAIT_TIMEOUT
+ * 
+ * @return int
+ * On success: PHPT_WAIT_SUCCESS
+ * On timeout: PHPT_WAIT_TIMEOUT
+ * 
+ */
+function phpthread_wait_for_variable(       &$variable, 
+                                            $target_value,
+                                        int $ms_timeout = PHPTHREAD_NO_WAIT)
+{
+    $t = (($ms_timeout > 0)?ftimer():null);
+
+    while ($variable !== $target_value) {
+        usleep(250);
+        if ($t && 
+            $t->ms() >= $ms_timeout)
+        {
+            return PHPT_WAIT_TIMEOUT;
+        }
+    }
+    return PHPT_WAIT_SUCCESS;
+}

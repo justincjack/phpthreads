@@ -255,6 +255,7 @@ class PHPTHREAD {
             }
             return;
         }
+
         do {
             $status = 0;
             $pid = @\pcntl_waitpid(-1, $status, WNOHANG);
@@ -338,16 +339,6 @@ class PHPTHREAD {
 
         if (!$obj) {
             return false;
-        }
-
-        if (@\property_exists($obj, "compressed")) {
-            if ($obj->compressed === true) {
-                $b64un = @\base64_decode($obj->data);
-                if ($b64un) {
-                    $obj->data = @\gzuncompress($b64un);
-                    $obj->data = @\json_decode($obj->data);
-                }
-            }
         }
 
         /**
@@ -479,11 +470,16 @@ class PHPTHREAD {
     }
 
     private function check_socket() {
+        static $timer = null;
+
+        if ($timer === null) {
+            $timer = @\ftimer();
+        }
 
         $rx_buffer  = "";
         $bread      = "";
-        $brlen      = 0;
         $action     = false;
+        $timer->reset();
 
         if (!$this->listener_socket) {
             return;
@@ -503,18 +499,19 @@ class PHPTHREAD {
                     $cae = array();
                     $sv = @\stream_select($car, $caw, $cae, 0, 5000);
                     if ($sv) {
-                        $brlen = 0;
-                        $bread = @\fread($client, PHPT_RX_MAX);
-                        if (@\is_string($bread)) {
-                            $brlen = @\strlen($bread);
-                            if ($brlen > 0) {
-                                $rx_buffer.=$bread;
-                            }
+                        $bread = @\fread($client, 65535);
+                        if ($bread !== "") {
+                            $rx_buffer.=$bread;
+                            $timer->reset();
+                        } else {
+                            break;
                         }
-                    } else {
+                    } else if ($sv === false) {
+                        break;
+                    } else if ($timer->secs() > 5) {
                         break;
                     }
-                } while ($brlen === PHPT_RX_MAX);
+                } while (1);
                 @\phpt_close_socket($client);
                 $this->process_rx_buffer($rx_buffer);
             }
