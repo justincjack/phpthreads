@@ -1,8 +1,13 @@
 # PHPThreads - Powerful easy-to-use parallel processing library for PHP
 ## By Justin Jack - Requires PHP >= 7.1.0
 
-First off, **YES**, the library allows you to share data between PHPThreads.  **YES**, you may obtain the return value (including, but not limited to: int, float, string, array, object) of a PHPThread from a call to "phpthread_join()."  **YES**, it can be a number, string, object, array, or a limited class object.  And lastly, **YES**, you can set global variables visible to all running PHPThreads.
+First off.. 
+- **YES**! the library allows you to share data between PHPThreads!   
+- **YES**! you may obtain the return value of a PHPThread from a call to "phpthread_join()."  
+- **YES**! it can be a number, string, object, array, or a limited class object.  
+- **YES**! you can set global variables from within PHPThreads that are accessible to all running PHPThreads!
 
+No, they aren't *true* threads, as per CS definitions, but you really can't tell the difference.  I'll put it this way - This library is closer to the feel of true threading than McDonalds new "McPlant" hamburger patty is to beef. 😂
 
 If you're like me, you **love** PHP!  You love the flexibility and power of the language - the freedom to write sloppy code (I don't advocate it, but I'll defend to the death the right to write sloppy code), or to create indisputably beautiful works of logical art!  Now, for all my C (and C++, I guess) programmers, you have a library to not only truly show off the power of PHP, but to ***supercharge your next project!***
 
