@@ -9,7 +9,7 @@ I designed this library because I wanted to write a high-performance WebSocket s
 
 For you more technical folks, this library isn't temporally impeded by the need to use "ticks."  That's part of what makes it so fast.  The library uses signals (e.g. SIGUSR1 and SIGUSR2) internally to interrupt the execution and switch context very fluidly.  Yes, we're hogging SIGUSR1 and 2, so if your project is using those signals, consider using `phpthread_send_message()` to a designated message handler function (see: examples/messages1.php and examples/messages2.php).  It should completely suit your purpose.
 
-There are examples you can run in the "examples" directory.  Feel free to place a shebang for easy execution, or run them by prefixing them with `php <filename>`.
+There are examples you can run in the "examples" directory.  Feel free to place a shebang for easy execution, or run them by prefixing them with `php <filename>`.  I haven't completed them all yet, but I have finished a good number of them.  At least enough to get a good understanding of the capabilities.
 
 ### Dependencies
 PHPThreads requires the following PHP extensions:
@@ -17,7 +17,7 @@ PHPThreads requires the following PHP extensions:
 - sockets
 - pcntl
 
-## Quick and dirty example!
+## Quick and dirty example:
 
 ```
 <?php 
@@ -37,7 +37,7 @@ function thread_proc(   $thread,
         'seconds_alive'=>$i,
         'lucky_number'=>rand(0, 10000)
     );
-    
+
     echo "\n\t[PHPTHREAD] - I'm returning this:\n";
     print_r($myobj);
     echo "\n";
