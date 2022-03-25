@@ -17,7 +17,7 @@ PHPThreads requires the following PHP extensions:
 - sockets
 - pcntl
 
-## Quick and dirty example:
+## Quick and easy example:
 
 ```
 <?php 
