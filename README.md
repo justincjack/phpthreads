@@ -2,10 +2,11 @@
 ## By Justin Jack - Requires PHP >= 7.1.0
 
 First off.. 
-- **YES**! the library allows you to share data between PHPThreads!   
-- **YES**! you may obtain the return value of a PHPThread from a call to "phpthread_join()."  
-- **YES**! it can be a number, string, object, array, or a limited class object.  
-- **YES**! you can set global variables from within PHPThreads that are accessible to all running PHPThreads!
+- **YES**! You execute specified functions/methods truly in parallel with the calling context - scheduled directly on a CPU/core by the kernel!
+- **YES**! The library allows you to share data between PHPThreads!   
+- **YES**! You may obtain the return value of a PHPThread from a call to "phpthread_join()."  
+- **YES**! It can be a number, string, object, array, or a limited class object.  
+- **YES**! You can set global variables from within PHPThreads that are accessible to all running PHPThreads!
 
 No, they aren't *true* threads, as per CS definitions, but you really can't tell the difference.  I'll put it this way - This library is closer to the feel of true threading than McDonalds new "McPlant" hamburger patty is to beef. 😂
 
