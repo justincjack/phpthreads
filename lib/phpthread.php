@@ -176,13 +176,13 @@ function phpthread_create(  ?PHPTHREAD  &$phpthread,
     if ($start_routine === null) {
         return PHPT_BAD_THREADPROC;
     }
+    
+    $new_thread = new PHPTHREAD( $phpthread, $attribs, $entry_point, $class_or_instance, $params, $user_data );
 
-    for (; $fail_ctr < 3; $fail_ctr++) {
-        $new_thread = new PHPTHREAD( $phpthread, $attribs, $entry_point, $class_or_instance, $params, $user_data );
-        if ($new_thread->pid > 0) {
-            return $new_thread->pid;
-        }
+    if ($new_thread->pid > 0) {
+        return $new_thread->pid;
     }
+    
     return $new_thread->errornum;
 }
 
